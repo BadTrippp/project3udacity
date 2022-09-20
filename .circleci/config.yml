@@ -266,7 +266,7 @@ cleanup:
             
 
 workflows:
-  default:
+  my_workflow:
     jobs:
       - build-frontend
       - build-backend
