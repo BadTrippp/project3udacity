@@ -175,8 +175,8 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            # sudo apt install -y epel-release
-            sudo apt install -y tar gzip ansible
+            sudo apt install -y epel-release
+            sudo apt install -y tar gzip 
             
       - run:
           name: Configure server
