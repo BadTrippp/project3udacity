@@ -188,7 +188,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            sudo apt install ansible
+            cat /etc/os-release
       - run:
           name: Configure server
           command: |
