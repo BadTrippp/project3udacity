@@ -175,10 +175,9 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible
             ansible --version
-           # sudo apt install -y epel-release
-           # sudo apt install -y tar gzip ansible
+          #  sudo apt install -y epel-release
+          #  sudo apt install -y tar gzip ansible
             
       - run:
           name: Configure server
