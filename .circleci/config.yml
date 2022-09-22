@@ -188,10 +188,7 @@ jobs:
       - run:
           name: Install dependencies
           command: |
-            
-            tar --version
-            gzip --version
-            ansible --version
+            apt install ansible
       - run:
           name: Configure server
           command: |
