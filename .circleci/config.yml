@@ -189,6 +189,7 @@ jobs:
           name: Install dependencies
           command: |
             cat /etc/os-release
+            python3 -m pip install --user ansible
       - run:
           name: Configure server
           command: |
