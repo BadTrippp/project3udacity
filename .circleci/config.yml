@@ -187,16 +187,16 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: "b1:25:92:0e:0c:07:b9:54:b5:c4:24:b1:b4:32:f4:fc"
-          
       - run:
           name: Install dependencies
           command: |
             python3 -m pip install --user ansible
       - run:
           name: Configure server
+          working_directory: ./.circleci/ansible  
           command: |
-            # Your code here
-            exit 1
+            cd .circleci/ansible
+            ansible-playbook -i inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure      
 
   # run-migrations:
