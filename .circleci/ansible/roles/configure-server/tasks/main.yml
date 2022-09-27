@@ -22,6 +22,11 @@
       name: ["nodejs", "npm"]
       state: latest
 
+
+  - name: "install nodejs 13.8.0"
+    become: yes
+    shell: n 13.8.0
+
   - name: "install pm2"
     become: yes
     npm:
