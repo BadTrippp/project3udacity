@@ -12,15 +12,6 @@ commands:
 
 
     steps:
-      - run:
-          name: Install AWS CLI 
-          working_directory: /tmp
-          command: |
-            apt-get update -y 
-            apt-get install -y 
-            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-            unzip awscliv2.zip
-            ./aws/install
             
       - run:
           name: Destroy environments
@@ -237,6 +228,16 @@ jobs:
     steps:
       # Checkout code from git
       - checkout
+      - run:
+          name: Install AWS CLI 
+          working_directory: /tmp
+          command: |
+            sudo apt-get update -y 
+            sudo apt-get install -y 
+            curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+            unzip awscliv2.zip
+            sudo ./aws/install
+
       - run:
           name: Run migrations
           working_directory: ./backend
