@@ -24,7 +24,7 @@
 
   - name: "install pm2"
     become: yes
-    apt:
+    npm:
       name: pm2
       update_cache: yes
       global: yes
