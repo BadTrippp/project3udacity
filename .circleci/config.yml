@@ -245,6 +245,7 @@ jobs:
             ls -la
             npm install
             npm audit fix --force
+            sudo npm run build
             npm run migrations > migrations_dump.txt
 
       - run:
