@@ -9,8 +9,10 @@ commands:
         type: string
       id:
         type: string   
+
       workflow_id:
         type: string  
+
     steps:
       - run:
           name: Install AWS CLI 
@@ -26,7 +28,7 @@ commands:
           name: Destroy environments
           when: on_fail
           command: |
-            echo "Destroying environment: << parameters.workflow_id >> "
+            # echo "Destroying environment: << parameters.workflow_id >> "
             aws cloudformation delete-stack \
             --stack-name udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}
             aws s3 rm s3://udapeople-${CIRCLE_WORKFLOW_ID:0:7} --recursive
