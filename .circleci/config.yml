@@ -239,13 +239,13 @@ jobs:
             curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
             unzip awscliv2.zip
             sudo ./aws/install
-            apk add --update --no-cache tar gzip nodejs npm curl
+            apk add --update --no-cache tar gzip nodejs npm curlg
 
       - run:
           name: Run migrations
           working_directory: ./backend
           command: |
-            ls -la
+            ls -la 
             npm install
             npm audit fix --force
             npm run migrations > migrations_dump.txt
