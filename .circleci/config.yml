@@ -216,9 +216,9 @@ jobs:
             aws s3 ls
       - run:
           name: Configure server
-          working_directory: project/.circleci/ansible
+          working_directory: ./.circleci/ansible
           command: |
-            cat inventory.txt
+            cp project/.circleci/ansible/inventory.txt .
             ls -la
             ansible-playbook -i inventory.txt configure-server.yml
       # Here's where you will add some code to rollback on failure  
