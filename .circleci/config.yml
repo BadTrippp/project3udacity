@@ -10,8 +10,6 @@ commands:
       id:
         type: string   
 
-      workflow_id:
-        type: string  
 
     steps:
       - run:
