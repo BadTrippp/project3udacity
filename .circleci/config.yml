@@ -286,8 +286,7 @@ jobs:
           name: Get backend url
           command: |
             # your code here
-            export a=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7})
-            # export a=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-8dc55ac) 
+            export a=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}) 
             echo $a | awk '{print substr($0, 6, length($0) - 10)}' > be_ip.txt 
             export BACKEND_IP=$(cat be_ip.txt)
             export API_URL="http://${BACKEND_IP}:3030"
@@ -363,16 +362,28 @@ jobs:
       - run:
           name: Get backend url
           command: |
-            curl google.com
+            export a=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}) 
+            echo $a | awk '{print substr($0, 6, length($0) - 10)}' > be_ip.txt 
+            export BACKEND_IP=$(cat be_ip.txt)
+            export API_URL="http://${BACKEND_IP}:3030"
+            echo "${API_URL}"
       - run:
           name: Backend smoke test.
           command: |
-            # your code here
+            if curl "${API_URL}/api/status" | grep "ok"
+            then
+              return 0
+            else
+              return 1
+            fi
       - run:
           name: Frontend smoke test.
           command: |
             # your code here
       # Here's where you will add some code to rollback on failure  
+      - destroy-environment:
+          id: ${CIRCLE_WORKFLOW_ID:0:7}
+          when: on_fail
 
   # cloudfront-update:
   #   docker:
@@ -435,8 +446,8 @@ workflows:
           requires: [run-migrations]
       - deploy-backend:
           requires: [run-migrations] 
-      - smoke-test
-      #     requires: [deploy-backend, deploy-frontend]
+      - smoke-test:
+          requires: [deploy-backend, deploy-frontend]
       # - cloudfront-update:
       #     requires: [smoke-test]
       # - cleanup:
