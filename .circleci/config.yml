@@ -360,22 +360,23 @@ jobs:
           command: |
             apk add --update --no-cache tar gzip nodejs npm aws-cli curl
       - run:
-          name: Get backend url
+          name: Get backend url & Backend Smoke Test
           command: |
             export a=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7}) 
             echo $a | awk '{print substr($0, 6, length($0) - 10)}' > be_ip.txt 
             export BACKEND_IP=$(cat be_ip.txt)
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
-      - run:
-          name: Backend smoke test.
-          command: |
             if curl "${API_URL}/api/status" | grep "ok"
             then
               return 0
             else
               return 1
             fi
+      # - run:
+      #     name: Backend smoke test.
+      #     command: |
+            
       - run:
           name: Frontend smoke test.
           command: |
