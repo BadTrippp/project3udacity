@@ -296,7 +296,7 @@ jobs:
             # your code here
             # export BACKEND_IP=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-${CIRCLE_WORKFLOW_ID:0:7})
             export a=$(aws ec2 describe-instances --query 'Reservations[*].Instances[*].PublicIpAddress' --filters Name=tag:aws:cloudformation:stack-name,Values=udapeople-backend-8dc55ac) 
-            echo $a | | awk '{print substr($0, 6, length($0) - 10)}'
+            echo $a | awk '{print substr($0, 6, length($0) - 10)}'
             export API_URL="http://${BACKEND_IP}:3030"
             echo "${API_URL}"
       - run:
