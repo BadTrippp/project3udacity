@@ -41,3 +41,13 @@
       production: yes
       state: present
 
+  - name: "extract directory"
+    become: yes
+    unarchive:
+      src: files/artifact.tar.gz
+      dest: .
+  - name: start app
+    become: yes
+    shell: |
+      pm2 stop default
+      pm2 start npm -- start
