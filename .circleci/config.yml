@@ -350,6 +350,8 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: "b1:25:92:0e:0c:07:b9:54:b5:c4:24:b1:b4:32:f4:fc"
+      - restore_cache:
+          keys: [backend-build]
       - attach_workspace:
           at: .
       - run:
@@ -368,7 +370,7 @@ jobs:
           name: Deploy backend
           command: |
             cd backend
-            npm install
+            npm i
             npm run build
             cd ..
             # Zip the directory
@@ -456,7 +458,7 @@ jobs:
             aws cloudformation deploy \
               --template-file .circleci/files/cloudfront.yml \
               --stack-name InitialStack \
-              --parameter-overrides WorkflowID="udapeople-${CIRCLE_WORKFLOW_ID:0:7}" \
+              --parameter-overrides WorkflowID="${CIRCLE_WORKFLOW_ID:0:7}" \
               --tags project=udapeople
       # Here's where you will add some code to rollback on failure  
       - destroy-environment:
@@ -486,7 +488,7 @@ jobs:
       - run:
           name: Remove old stacks and files
           command: |
-            if [[ "${STACKS[@]}" =~ "${OldWorkflowID}" ]]
+            if [[ "${STACKS[@]}" =! "${OldWorkflowID}" ]]
             then
               echo "############# clean old stacks ##############"
               aws s3 rm "s3://udapeople-${OldWorkflowID}" --recursive
