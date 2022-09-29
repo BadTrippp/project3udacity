@@ -27,7 +27,7 @@
     npm:
       name: n
       global: yes
-      production: yes
+      production: yes 
 
   - name: "install nodejs 13.8.0"
     become: yes
