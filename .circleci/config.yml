@@ -505,8 +505,7 @@ jobs:
       - run: 
           name: Remove old stacks and files
           command: |
-            export OldWorkflowID=$(cat ~/OldWorkflowID.txt)
-            
+            export OldWorkflowID=$(curl --insecure https://kvdb.io/XVqTwXN8quSnFo8fr2GnXR/migration_oldworkflow)
             if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" && "${OldWorkflowID}" != "" ]]
             then
               echo "############# clean old stacks ##############"
