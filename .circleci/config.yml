@@ -501,7 +501,7 @@ jobs:
           at: ~/
       - restore_cache:
           keys: [backend-build]
-      - run:
+      - run: 
           name: Remove old stacks and files
           command: |
             if [[ "${CIRCLE_WORKFLOW_ID:0:7}" != "${OldWorkflowID}" && "${OldWorkflowID}" != "" ]]
