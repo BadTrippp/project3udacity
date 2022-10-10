@@ -496,7 +496,7 @@ jobs:
       - checkout 
       - run:
           name: install dependencies
-          command: |
+          command: | 
             yum install -y tar gzip
       - attach_workspace:
           at: ~/
